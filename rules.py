@@ -73,7 +73,7 @@ def GetTestEnvironment(test):
         pass
     return env
 
-def RunUnitTest(env, target, source, timeout = 300):
+def RunUnitTest(env, target, source, timeout = 600):
     if 'BUILD_ONLY' in env['ENV']:
         return
     import subprocess
@@ -576,7 +576,7 @@ def ProtocDescBuilder(target, source, env):
     if not env.Detect('protoc'):
         raise SCons.Errors.StopError(
             'protoc Compiler not detected on system')
-    etcd_incl = os.environ.get('CONTRAIL_ETCD_INCL')
+    etcd_incl = os.environ.get('CONTRAIL_K8S_CONFIG')
     if etcd_incl:
         protoc = env.Dir('#/third_party/grpc/bins/opt/protobuf').abspath + '/protoc'
         protop = ' --proto_path=build/include/ '
@@ -612,7 +612,7 @@ def ProtocCppBuilder(target, source, env):
     if not env.Detect('protoc'):
         raise SCons.Errors.StopError(
             'protoc Compiler not detected on system')
-    etcd_incl = os.environ.get('CONTRAIL_ETCD_INCL')
+    etcd_incl = os.environ.get('CONTRAIL_K8S_CONFIG')
     if etcd_incl:
         protoc = env.Dir('#/third_party/grpc/bins/opt/protobuf').abspath + '/protoc'
         protop = ' --proto_path=build/include/ '
